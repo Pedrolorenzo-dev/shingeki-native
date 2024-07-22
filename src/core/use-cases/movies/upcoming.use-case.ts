@@ -3,15 +3,15 @@ import {GeneralResponse} from '../../../infrastructure/interfaces/movie-db.respo
 import {MovieMapper} from '../../../infrastructure/mappers/movie.mapper';
 import {Movie} from '../../entities/movie.entity';
 
-export const moviesNowPlayingUseCase = async (
+export const moviesUpcomingUseCase = async (
   fetcher: HttpAdapter,
 ): Promise<Movie[]> => {
   try {
-    const nowPlaying = await fetcher.get<GeneralResponse>('/now_playing');
-    console.log('nowPlaying: ', {nowPlaying});
+    const upcoming = await fetcher.get<GeneralResponse>('/upcoming');
+    console.log('Upcoming: ', {upcoming});
 
-    return nowPlaying.results.map(MovieMapper.fromMovieDBResultToEntity);
+    return upcoming.results.map(MovieMapper.fromMovieDBResultToEntity);
   } catch (error) {
-    throw new Error('Error fetching playing movies - NowPlaying');
+    throw new Error('Error fetching upcoming movies - Upcoming');
   }
 };
